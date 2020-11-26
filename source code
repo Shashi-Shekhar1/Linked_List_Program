@@ -1,0 +1,194 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Node
+{
+    int data;
+    Node next;
+    Node (int data)
+    {
+        this.data=data;
+    }
+}
+class Codechef
+{
+    Node head;
+    void insert(int data)
+    {
+        Node n=new Node(data);
+        if(head==null)
+        {
+            head=n;
+        }
+        else
+        {
+            Node t=head;
+            while(t.next!=null)
+            {
+                t=t.next;
+            }
+            t.next=n;
+        }
+    }
+    void insertAtstart(int data)
+    {
+        Node n=new Node(data);
+        n.next=head;
+        head=n;
+    }
+    void insertAtMid(int data)
+    {
+        Node n=new Node(data);
+        Node fast=head;
+        Node slow=head;
+        while(fast!=null && fast.next!=null)
+        {
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        Node temp=slow.next;
+        slow.next=n;
+        n.next=temp;
+    }
+    void insertAfterElement(int ele,int data)
+    {
+        Node n=new Node(data);
+        Node t=head;
+        while(t.next !=null)
+        {   if(t.data==ele)
+                {break;}
+            t=t.next;
+        }
+        if(t.data==ele)
+        {  
+            Node f=t.next;
+            t.next=n;
+            n.next=f;
+        }
+       
+    }
+    void deleteAtEnd()
+    {
+        Node f=head;
+        Node g=null;
+        while(f.next!=null)
+        {   g=f;
+            f=f.next;
+        }
+        g.next=null;
+    }
+    void deleteAtbeg()
+    {
+        Node temp=head;
+        head=head.next;
+        temp=null;
+    }
+    void deleteAtMid()
+    {
+        Node fast=head;
+        Node slow=head;
+        Node prev=null;
+        while(fast!=null && fast.next !=null)
+        {   prev=slow;
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        prev.next=slow.next;
+    }
+    void deleteAfterElement(int data)
+    {
+        Node f=head;
+        while(f.next!=null)
+        {   if(f.data==data)
+            {break;}
+            f=f.next;
+        }
+        if(f.data==data && f.next !=null)
+        {
+            f.next=f.next.next;
+        }
+    }
+    void deleteBeforeElement(int ele)
+    {
+        Node pre=null;
+        Node prePre=null;
+        Node temp=head;
+        while(temp.next!=null)
+        {  if(temp.data==ele)
+            {break;}
+            prePre=pre;
+            pre=temp;
+            temp=temp.next;
+        }
+        if(pre !=null)
+       { prePre.next=pre.next;}
+    }
+ void reverse()
+    {
+        Node current=head;
+        Node pre=null;
+        Node forw=null;
+        while(current !=null)
+        {
+            forw=current.next;
+            current.next=pre;
+            pre=current;
+            current=forw;
+        }
+        head=pre;
+    }
+    void reverseK(int k)
+    { head=reverseInK(head,k);
+    System.out.println();
+
+        display();
+    }
+    Node reverseInK(Node hea,int k)
+    {
+       Node current =hea;
+       Node pre=null;
+       Node forw=null;
+       Node fg=hea;
+       int l=0;
+       while(l<k && current !=null)
+       {
+           forw=current.next;
+           current.next=pre;
+           pre=current;
+           current=forw;
+           l++;
+       }
+       if(current !=null){
+       fg.next=reverseInK(current,k);}
+       return pre;
+       
+    }
+    void display()
+    {
+        Node t=head;
+        while(t.next !=null)
+        {   System.out.print(t.data+"-->");
+            t=t.next;
+           
+        }
+        System.out.print(t.data+"-->null");
+    }
+public static void main (String[] args) throws java.lang.Exception
+{
+Codechef c=new Codechef();
+c.insert(1);
+c.insert(2);
+c.insert(3);
+c.insert(4);
+c.insert(5);
+c.insert(6);
+    c.insert(7);
+c.display();
+c.reverse();
+System.out.println();
+c.display();
+}
+}
+
